@@ -1,30 +1,40 @@
 #include <string.h>
 #include "cli.h"
-#include "contact.h"
 #include <stdio.h>
-
+#include <stddef.h>
+#include "contact.h"
 
 void print_options(){
     printf("1)Add\n2)List\n3)Find\n4)Exit\n\n");
 
 }
 
-void add_contact(){
-    Contact new_contact;
-
+Contact* add_contact(Contact *c){
     printf("Name: ");
-    fgets(new_contact.name,sizeof(new_contact.name),stdin);
+    fgets(c->name,sizeof(c->name),stdin);
 
     printf("Phone Number: ");
-    fgets(new_contact.phone_num,sizeof(new_contact.phone_num),stdin);
+    fgets(c->phone_num,sizeof(c->phone_num),stdin);
 
-     new_contact.name[
-        strcspn(new_contact.name, "\n")
+     c->name[
+        strcspn(c->name, "\n")
     ] = '\0';
 
-    new_contact.phone_num[
-        strcspn(new_contact.phone_num, "\n")
+    c->phone_num[
+        strcspn(c->phone_num, "\n")
     ] = '\0';
 
-    printf("New Contact Created!\n\n");
+    printf("New Contact Created!\n");
+    return c;
 }
+
+
+void list_contacts(const Contact *c, size_t n){
+    size_t count = 0;
+    while (count < n){
+        print_contact(c);
+        c++;
+        count++;
+    }
+}
+

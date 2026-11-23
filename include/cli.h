@@ -2,8 +2,7 @@
 #define CLI
 #include "contact.h"
 
-void start_cli();
-
-void save_name(char* name,Contact *contact);
+void print_options();
+void add_contact();
 
 #endif

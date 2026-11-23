@@ -1,8 +1,6 @@
 #ifndef CONTACTS
 #define CONTACTS
 
-#include <stdio.h>
-
 typedef struct {
     char name[20];
     char phone_num[13];

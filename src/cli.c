@@ -1,33 +1,30 @@
+#include <string.h>
 #include "cli.h"
+#include "contact.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 
-void start_cli(){
-    printf("Welcome to Contacts CLI Tool\n");
-    bool continue_cli_loop = true;
-    while(continue_cli_loop){
-        char user_input[] = "0";
-        char buffer[20];
-        fgets(user_input,sizeof(user_input), stdin);
-        printf("%s\n", user_input);
+void print_options(){
+    printf("1)Add\n2)List\n3)Find\n4)Exit\n\n");
 
-        switch(atoi(user_input)){
-            case 1: //Add Contact
-                break;
-            case 2: //List All Contacts
-                break;
-            case 3: //Find Contact
-                break;
-            case 4: //Exit cli tool
-                printf("EXITING CLI TOOL!\n");
-                continue_cli_loop = false;
-                break;
-        }
-
-    }
 }
 
 void add_contact(){
+    Contact new_contact;
 
+    printf("Name: ");
+    fgets(new_contact.name,sizeof(new_contact.name),stdin);
+
+    printf("Phone Number: ");
+    fgets(new_contact.phone_num,sizeof(new_contact.phone_num),stdin);
+
+     new_contact.name[
+        strcspn(new_contact.name, "\n")
+    ] = '\0';
+
+    new_contact.phone_num[
+        strcspn(new_contact.phone_num, "\n")
+    ] = '\0';
+
+    printf("New Contact Created!\n\n");
 }

@@ -1,15 +1,18 @@
 #include "cli.h"
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 
 int main(void){
     //array of contact structs
     Contact contacts_list[100];
+    const Contact *c = contacts_list;
     size_t contact_count = 0;
 
     printf("Welcome to Contacts CLI Tool\n");
 
     bool continue_cli_loop = true;
+
     while(continue_cli_loop){
         print_options();
 
@@ -30,13 +33,20 @@ int main(void){
                 printf("\n");
                 break;
             case 3: //Find Contact
+                const Contact *c_found = find_contact(c , sizeof contacts_list / sizeof(Contact));
+                if (c_found == NULL){
+                    printf("Contact Not Found\n");
+                }else{
+                    print_contact(c_found);
+                    printf("\n");
+                }
                 break;
             case 4: //Exit cli tool
                 printf("EXITING CLI TOOL!\n");
                 continue_cli_loop = false;
                 break;
         }
-
+        //memset(user_input,0,sizeof user_input);
     }
     printf("%ld, %ld\n",sizeof contacts_list / sizeof(Contact),sizeof contacts_list);
     return 0;

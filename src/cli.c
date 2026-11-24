@@ -10,7 +10,7 @@ void print_options(){
 }
 
 Contact* add_contact(Contact *c){
-    printf("Name: ");
+    printf("Contact Name: ");
     fgets(c->name,sizeof(c->name),stdin);
 
     printf("Phone Number: ");
@@ -38,3 +38,20 @@ void list_contacts(const Contact *c, size_t n){
     }
 }
 
+const Contact* find_contact(const Contact *contact_list, size_t n){
+    char buff[20];
+    printf("Contact Name: ");
+    fgets(buff,sizeof buff, stdin);
+    size_t i = 0;
+
+    buff[
+        strcspn(buff, "\n")
+    ] = '\0';
+    while(i < n){
+        if(strcmp((contact_list+i)->name, buff) == 0){
+            return (contact_list+i);
+        }
+        i++;
+    }
+    return NULL;
+}

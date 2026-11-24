@@ -7,12 +7,18 @@
 
 int main(void){
     //array of contact structs
-    Contact contacts_list[100];
+    Contact contacts_list[100] = {0};
     const Contact *c = contacts_list;
-    size_t contact_count = 0;
+    Contact *cw = contacts_list;
 
     printf("Welcome to Contacts CLI Tool\n");
 
+    size_t count = load_from_file(cw); //load from file into contact list
+    printf("Loaded %ld contacts!\n\n",count);
+
+    size_t contact_count = count;
+
+    //MAIN LOOP
     bool continue_cli_loop = true;
 
     while(continue_cli_loop){
@@ -58,6 +64,5 @@ int main(void){
                 break;
         }
     }
-    printf("%ld, %ld\n",sizeof contacts_list / sizeof(Contact),sizeof contacts_list);
     return 0;
 }

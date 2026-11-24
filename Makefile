@@ -6,8 +6,11 @@ all: build/contacts
 run:
 	./build/contacts
 
-build/contacts: build/main.o build/contact.o build/cli.o
-	$(CC) build/main.o build/contact.o build/cli.o -o build/contacts
+build/contacts: build/main.o build/contact.o build/cli.o build/storage.o
+	$(CC) build/main.o build/contact.o build/cli.o build/storage.o -o build/contacts
+
+build/storage.o: src/storage.c | build
+	$(CC) $(CFLAGS) -c src/storage.c -o build/storage.o
 
 build/cli.o: src/cli.c | build
 	$(CC) $(CFLAGS) -c src/cli.c -o build/cli.o 

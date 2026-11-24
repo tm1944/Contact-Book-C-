@@ -1,4 +1,6 @@
 #include "cli.h"
+#include "storage.h"
+#include "string.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -16,10 +18,14 @@ int main(void){
     while(continue_cli_loop){
         print_options();
 
-        char user_input[5];
+        char user_input[5] = {0};
         printf("> ");
         fgets(user_input,sizeof(user_input), stdin);
 
+        if (strchr(user_input, '\n') == NULL) {
+            int ch;
+            while ((ch = getchar()) != '\n' && ch != EOF) {}
+        }
         switch(atoi(user_input)){
             case 1: //Add Contact
 
@@ -33,7 +39,7 @@ int main(void){
                 printf("\n");
                 break;
             case 3: //Find Contact
-                const Contact *c_found = find_contact(c , sizeof contacts_list / sizeof(Contact));
+                const Contact *c_found = find_contact(c , contact_count);
                 if (c_found == NULL){
                     printf("Contact Not Found\n");
                 }else{
@@ -43,10 +49,14 @@ int main(void){
                 break;
             case 4: //Exit cli tool
                 printf("EXITING CLI TOOL!\n");
+                save_to_file(c,contact_count);
                 continue_cli_loop = false;
                 break;
+            
+            default:
+                printf("Option Not Available! Try Again!\n");
+                break;
         }
-        //memset(user_input,0,sizeof user_input);
     }
     printf("%ld, %ld\n",sizeof contacts_list / sizeof(Contact),sizeof contacts_list);
     return 0;
